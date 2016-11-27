@@ -41,7 +41,7 @@ Start the server `npm start`, or to run it in dev mode: `npm run dev` (requires 
 
 4. Create a form to delete a user (you decide on how this will work on the front end) and a route to __delete__ an existing user.
 
-5. Update the database structure to hold additional information on each user (you choose, but it try to pick information likely to be specific to a user - e.g. email address, home address etc)
+5. Update the database structure to hold additional information on each user (you choose, but try to pick information likely to be specific to a user - e.g. email address, home address etc)
 
 6. Create a user detail view and a route which will __read__ from the database and return all the data held for a particular user.
 
