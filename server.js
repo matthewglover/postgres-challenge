@@ -6,7 +6,7 @@ const {
   addRoutes,
   startServer } = require('@matthewglover/hapi-wrapper');
 
-env('./local.env');
+env('./config.env');
 
 const routes = require('./routes');
 const plugins = require('./plugins');
