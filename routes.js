@@ -25,15 +25,16 @@ const create = {
   method: 'POST',
   path: '/createuser',
   handler(req, reply) {
-    console.log(req.params);
-    createUser(req.params, (error, users) => {
+    createUser(req.payload, (error) => {
       if (error) console.log('Error:', error);
-      console.log(users);
-      reply.view('users', { users });
+      getUsers((error, users) => {
+        if (error) console.log('Error:', error);
+        console.log(users);
+        reply.view('users', { users });
+      });
     });
   },
 };
-
 
 module.exports = [
   home,
