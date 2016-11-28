@@ -1,19 +1,56 @@
+require('./init_database');
+const getUsers = require('./get_users');
+const getUser = require('./get_user');
+const createUser = require('./create_user');
 
-const users = [
-  { firstName: 'Matt', lastName: 'Glover', age: 25, type: 'worker' },
-  { firstName: 'Sam', lastName: 'Galson', age: 30, type: 'professor' },
-  { firstName: 'Matt', lastName: 'Sharp', age: 24, type: 'hipster' },
-  { firstName: 'Rich', lastName: 'Warren', age: 22, type: 'boss' },
-];
+// const users = [
+//   { firstName: 'Matt', lastName: 'Glover', age: 25, type: 'worker' },
+//   { firstName: 'Sam', lastName: 'Galson', age: 30, type: 'professor' },
+//   { firstName: 'Matt', lastName: 'Sharp', age: 24, type: 'hipster' },
+//   { firstName: 'Rich', lastName: 'Warren', age: 22, type: 'boss' },
+// ];
 
 const home = {
   method: 'GET',
   path: '/',
   handler(req, reply) {
-    reply.view('users', { users });
+    getUsers((error, users) => {
+      if (error) console.log('Error:', error);
+      console.log(users);
+      reply.view('users', { users });
+    });
+  },
+};
+
+const create = {
+  method: 'POST',
+  path: '/createuser',
+  handler(req, reply) {
+    createUser(req.payload, (error) => {
+      if (error) console.log('Error:', error);
+      getUsers((error, users) => {
+        if (error) console.log('Error:', error);
+        console.log(users);
+        reply.view('users', { users });
+      });
+    });
+  },
+};
+
+const edit = {
+  method: 'GET',
+  path: '/edituser',
+  handler(req, reply) {
+    const userid = req.query.id;
+    getUser(userid, (error, user) => {
+      if (error) console.log(error);
+      reply.view('edituser', user);
+    });
   },
 };
 
 module.exports = [
   home,
+  create,
+  edit,
 ];

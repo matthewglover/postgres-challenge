@@ -1,5 +1,14 @@
-<ull class="collection">
+<ul class="collection">
   {{#each users}}
-  <li class="collection-item">{{this.firstName}} {{this.lastName}}, {{this.age}}, {{this.type}}</li>
+  <li class="collection-item">{{this.firstName}} {{this.lastName}}, {{this.age}}, {{this.type}}
+    <a href="/edituser?id={{this.id}}">Edit</a></li>
   {{/each}}
 </ul>
+
+<form method="post" action="/createuser">
+  <input type="text" name="firstName" placeholder="First Name Here"/>
+  <input type="text" name="lastName" placeholder="Last Name Here"/>
+  <input type="number" name="age" placeholder="Age Here"/>
+  <input type="text" name="type" placeholder="Profession Here"/>
+  <input type="submit" value="Submit">
+</form>
