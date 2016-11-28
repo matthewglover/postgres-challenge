@@ -1,5 +1,6 @@
 require('./init_database');
 const getUsers = require('./get_users');
+const getUser = require('./get_user');
 const createUser = require('./create_user');
 
 // const users = [
@@ -36,7 +37,20 @@ const create = {
   },
 };
 
+const edit = {
+  method: 'GET',
+  path: '/edituser',
+  handler(req, reply) {
+    const userid = req.query.id;
+    getUser(userid, (error, user) => {
+      if (error) console.log(error);
+      reply.view('edituser', user);
+    });
+  },
+};
+
 module.exports = [
   home,
   create,
+  edit,
 ];
