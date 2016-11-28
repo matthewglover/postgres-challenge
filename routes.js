@@ -1,5 +1,6 @@
 require('./init_database');
 const getUsers = require('./get_users');
+const createUser = require('./create_user');
 
 // const users = [
 //   { firstName: 'Matt', lastName: 'Glover', age: 25, type: 'worker' },
@@ -20,6 +21,22 @@ const home = {
   },
 };
 
+const create = {
+  method: 'POST',
+  path: '/createuser',
+  handler(req, reply) {
+    createUser(req.payload, (error) => {
+      if (error) console.log('Error:', error);
+      getUsers((error, users) => {
+        if (error) console.log('Error:', error);
+        console.log(users);
+        reply.view('users', { users });
+      });
+    });
+  },
+};
+
 module.exports = [
   home,
+  create,
 ];
