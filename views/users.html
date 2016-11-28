@@ -1,7 +1,9 @@
 <ul class="collection">
   {{#each users}}
   <li class="collection-item">{{this.firstName}} {{this.lastName}}, {{this.age}}, {{this.type}}
-    <a href="/edituser?id={{this.id}}">Edit</a></li>
+    <a href="/edituser?id={{this.id}}"><i style='font-size:100%' class='material-icons'>mode_edit</i></a>
+    <a href="/deleteuser?id={{this.id}}"><i style='font-size:100%' class='material-icons'>delete_forever</i></a>
+  </li>
   {{/each}}
 </ul>
 

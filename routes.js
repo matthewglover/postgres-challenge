@@ -2,6 +2,8 @@ require('./init_database');
 const getUsers = require('./get_users');
 const getUser = require('./get_user');
 const createUser = require('./create_user');
+const updateUser = require('./update_user');
+const deleteUser = require('./delete_user');
 
 // const users = [
 //   { firstName: 'Matt', lastName: 'Glover', age: 25, type: 'worker' },
@@ -16,7 +18,6 @@ const home = {
   handler(req, reply) {
     getUsers((error, users) => {
       if (error) console.log('Error:', error);
-      console.log(users);
       reply.view('users', { users });
     });
   },
@@ -28,11 +29,7 @@ const create = {
   handler(req, reply) {
     createUser(req.payload, (error) => {
       if (error) console.log('Error:', error);
-      getUsers((error, users) => {
-        if (error) console.log('Error:', error);
-        console.log(users);
-        reply.view('users', { users });
-      });
+      reply.redirect('/');
     });
   },
 };
@@ -49,8 +46,33 @@ const edit = {
   },
 };
 
+const update = {
+  method: 'POST',
+  path: '/updateuser',
+  handler(req, reply) {
+    updateUser(req.payload, (error) => {
+      if (error) console.log(error);
+      reply.redirect('/');
+    });
+  },
+};
+
+const del = {
+  method: 'GET',
+  path: '/deleteuser',
+  handler(req, reply) {
+    const userid = req.query.id;
+    deleteUser(userid, (error) => {
+      if (error) console.log(error);
+      reply.redirect('/');
+    });
+  },
+};
+
 module.exports = [
   home,
   create,
   edit,
+  update,
+  del,
 ];
